@@ -4,6 +4,14 @@ import React, { useEffect, useState } from "react";
 const App = () => {
   const [user, setUser] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+      setUser(res.data);
+    } catch (error) {
+      setErrorMsg(error.message);
+    }
+  };
 
   useEffect(() => {
     // fetch("https://jsonplaceholder.typicode.com/users")
@@ -21,16 +29,7 @@ const App = () => {
 
     // },[])
 
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        setUser(res.data);
-      } catch (error) {
-        setErrorMsg(error.message);
-      }
-    };
+    
 
     fetchData();
   }, []);
