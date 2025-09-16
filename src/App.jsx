@@ -1,27 +1,40 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
+  const [user, setUser] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
 
-
-  const [user,setUser]=useState([])
-  const [errorMsg,setErrorMsg]=useState("")
-
-  useEffect(()=>{
+  useEffect(() => {
     // fetch("https://jsonplaceholder.typicode.com/users")
     // .then((res)=>res.json())
     // .then((data)=>console.log(data))
+    // },[])
 
+    //   axios
+    //     .get("https://jsonplaceholder.typicode.com/users")
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       setUser(res.data);
+    //     })
+    //     .catch((err) => setErrorMsg(err.message));
 
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        console.log(res.data);
+    // },[])
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
         setUser(res.data);
-      })
-      .catch((err) => setErrorMsg(err.message));
+      } catch (error) {
+        setErrorMsg(error.message);
+      }
+    };
 
-  },[])
+    fetchData();
+  }, []);
+
   return (
     <div>
       <div>
@@ -43,6 +56,6 @@ const App = () => {
       <p>{errorMsg}</p>
     </div>
   );
-}
+};
 
-export default App
+export default App;
