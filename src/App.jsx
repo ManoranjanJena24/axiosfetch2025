@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+const API = "https://jsonplaceholder.typicode.com";
 const App = () => {
   const [user, setUser] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
-  const fetchData = async () => {
+  const fetchData = async (url) => {
     try {
-      const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+      const res = await axios.get(url);
       setUser(res.data);
     } catch (error) {
       setErrorMsg(error.message);
@@ -31,7 +32,7 @@ const App = () => {
 
     
 
-    fetchData();
+    fetchData(`${API}/users`);
   }, []);
 
   return (
